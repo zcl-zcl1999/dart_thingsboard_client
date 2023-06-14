@@ -1,4 +1,9 @@
-import '../../thingsboard_client.dart';
+import 'base_data.dart';
+import 'id/alarm_comment_id.dart';
+import 'id/alarm_id.dart';
+import 'id/user_id.dart';
+import 'has_name.dart';
+
 
 enum AlarmCommentType { SYSTEM, OTHER }
 
@@ -15,7 +20,7 @@ extension AlarmCommentTypeToString on AlarmCommentType {
 
 // todo
 class AlarmComment extends BaseData<AlarmCommentId> with HasName {
-  final EntityId? alarmId;
+  final AlarmId? alarmId;
   final UserId? userId;
   AlarmCommentType type;
   Map<String, dynamic> comment;
@@ -67,7 +72,7 @@ class AlarmCommentInfo extends AlarmComment {
   final String email;
 
   AlarmCommentInfo({
-    required EntityId alarmId,
+    required AlarmId alarmId,
     required UserId userId,
     required AlarmCommentType type,
     required Map<String, dynamic> comment,

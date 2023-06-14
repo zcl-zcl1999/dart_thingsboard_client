@@ -7,12 +7,12 @@ void main() {
     ThingsboardClient? tbClient;
 
     setUp(() async {
-      tbClient = ThingsboardClient('https://esp.isimple.cloud');
+      tbClient = ThingsboardClient('http://localhost:8080');
       await tbClient!.init();
     });
 
     test('First Test', () async {
-      await tbClient!.login(LoginRequest('esp@isimple.cloud', '123456'));
+      await tbClient!.login(LoginRequest('', ''));
       // EntityTypeFilter entityTypeFilter = EntityTypeFilter(entityType: EntityType.DEVICE);
       // List<AlarmSearchStatus> alarmSearchStatus = [AlarmSearchStatus.ACTIVE];
       // AlarmCountQuery alarmCountQuery = AlarmCountQuery(entityFilter: entityTypeFilter, statusList: alarmSearchStatus);
