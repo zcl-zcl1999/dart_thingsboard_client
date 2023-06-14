@@ -5,6 +5,7 @@ import '../entity_type_models.dart';
 import '../id/entity_id.dart';
 import '../relation_models.dart';
 import '../telemetry_models.dart';
+import '../id/user_id.dart';
 
 enum EntityFilterType {
   SINGLE_ENTITY,
@@ -1252,3 +1253,72 @@ class AlarmData extends AlarmInfo {
     return 'AlarmData{${alarmInfoString('entityId: $entityId, latest: $latest')}}';
   }
 }
+
+// todo:
+class AlarmCountQuery extends EntityCountQuery {
+  final int? startTs;
+  final int? endTs;
+  final int? timeWindow;
+  final List<String>? typeList;
+  final List<AlarmSearchStatus>? statusList;
+  final List<AlarmSeverity>? severityList;
+  final bool? searchPropagatedAlarms;
+  final UserId? assigneeId;
+
+  AlarmCountQuery({
+    required EntityFilter entityFilter,
+    List<KeyFilter>? keyFilters,
+    this.startTs,
+    this.endTs,
+    this.timeWindow,
+    this.typeList,
+    this.statusList,
+    this.severityList,
+    this.searchPropagatedAlarms,
+    this.assigneeId,
+  }) : super(entityFilter: entityFilter, keyFilters: keyFilters);
+
+  @override
+  Map<String, dynamic> toJson() {
+    var json = super.toJson();
+    if ( assigneeId != null) {
+      json['assigneeId'] = assigneeId!.id;
+    }
+    if (startTs != null) {
+      json['startTs'] = startTs;
+    }
+    if (endTs != null) {
+      json['endTs'] = endTs;
+    }
+    if (timeWindow != null) {
+      json['timeWindow'] = timeWindow;
+    }
+    if (typeList != null) {
+      json['typeList'] = typeList;
+    }
+    if (statusList != null) {
+      json['statusList'] = statusList!.map((e) => e.toShortString()).toList();
+    }
+    if (severityList != null) {
+      json['severityList'] =
+          severityList!.map((e) => e.toShortString()).toList();
+    }
+    if (searchPropagatedAlarms != null) {
+      json['searchPropagatedAlarms'] = searchPropagatedAlarms;
+    }
+
+    return json;
+  }
+
+  @override
+  String toString() {
+    return 'AlarmCountQuery{${entityCountQueryString(alarmCountQueryString())}}';
+  }
+
+  String alarmCountQueryString() {
+    return 'startTs: $startTs, endTs: $endTs, timeWindow: $timeWindow, typeList: $typeList, statusList: $statusList, severityList: $severityList, searchPropagatedAlarms: $searchPropagatedAlarms, assigneeId: $assigneeId';
+  }
+}
+
+
+

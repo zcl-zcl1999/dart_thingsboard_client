@@ -31,6 +31,14 @@ class EntityQueryService {
     return response.data!;
   }
 
+  Future<int> countAlarmsByQuery(AlarmCountQuery query,
+      {RequestConfig? requestConfig}) async {
+    var response = await _tbClient.post<int>('/api/alarmsQuery/count',
+        data: jsonEncode(query),
+        options: defaultHttpOptionsFromConfig(requestConfig));
+    return response.data!;
+  }
+
   Future<PageData<EntityData>> findEntityDataByQuery(EntityDataQuery query,
       {RequestConfig? requestConfig}) async {
     var response = await _tbClient.post<Map<String, dynamic>>(

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:thingsboard_client/src/service/alarm_comment_service.dart';
 
 import 'error/thingsboard_error.dart';
 import 'http/http_utils.dart';
@@ -67,6 +68,7 @@ class ThingsboardClient {
   QueueService? _queueService;
   EntitiesVersionControlService? _entitiesVersionControlService;
   TwoFactorAuthService? _twoFactorAuthService;
+  AlarmCommentService? _alarmCommentService;
 
   factory ThingsboardClient(String apiEndpoint,
       {TbStorage? storage,
@@ -559,5 +561,11 @@ class ThingsboardClient {
   TwoFactorAuthService getTwoFactorAuthService() {
     _twoFactorAuthService ??= TwoFactorAuthService(this);
     return _twoFactorAuthService!;
+  }
+
+  // Added by PQ
+  AlarmCommentService getAlarmCommentService() {
+    _alarmCommentService ??= AlarmCommentService(this);
+    return _alarmCommentService!;
   }
 }

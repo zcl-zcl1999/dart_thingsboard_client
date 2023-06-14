@@ -1,3 +1,5 @@
+import 'package:thingsboard_client/src/model/id/alarm_comment_id.dart';
+
 import 'page/page_link.dart';
 import 'id/customer_id.dart';
 import 'id/entity_id.dart';
@@ -253,3 +255,6 @@ class AlarmQueryV2 {
     return queryParameters;
   }
 }
+
+
+
