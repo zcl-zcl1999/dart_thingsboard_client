@@ -1,3 +1,15 @@
+## 1.0.8
+
+- Update API and models according to ThingsBoard platform version 3.6.2
+- Fixed issue [#13](https://github.com/thingsboard/dart_thingsboard_client/issues/13): Problem occurred when using web socket and loosing internet
+- Fixed issue [#19](https://github.com/thingsboard/dart_thingsboard_client/issues/19): incorrect AlarmDataCmd
+- Fixed issue [#21](https://github.com/thingsboard/dart_thingsboard_client/issues/21): incorrect updated notification in subscription
+
+## 1.0.7
+
+- Update API and models according to ThingsBoard platform version 3.6.0
+- Fixed issue [#17](https://github.com/thingsboard/dart_thingsboard_client/issues/17): get json attributes when value is array
+
 ## 1.0.6
 
 - Fixed incorrect deserializing alarm models
