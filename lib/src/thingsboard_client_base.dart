@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:thingsboard_client/src/service/alarm_comment_service.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'error/thingsboard_error.dart';
 import 'http/http_utils.dart';
@@ -71,14 +72,17 @@ class ThingsboardClient {
   NotificationsService? _notificationService;
   AlarmCommentService? _alarmCommentService;
 
-  factory ThingsboardClient(String apiEndpoint,
-      {TbStorage? storage,
-      UserLoadedCallback? onUserLoaded,
-      MfaAuthCallback? onMfaAuth,
-      ErrorCallback? onError,
-      LoadStartedCallback? onLoadStarted,
-      LoadFinishedCallback? onLoadFinished,
-      TbCompute? computeFunc}) {
+  factory ThingsboardClient(
+    String apiEndpoint, {
+    TbStorage? storage,
+    UserLoadedCallback? onUserLoaded,
+    MfaAuthCallback? onMfaAuth,
+    ErrorCallback? onError,
+    LoadStartedCallback? onLoadStarted,
+    LoadFinishedCallback? onLoadFinished,
+    TbCompute? computeFunc,
+    bool debugMode = false,
+  }) {
     final dio = Dio();
     dio.options.baseUrl = apiEndpoint;
     final tbClient = ThingsboardClient._internal(
@@ -92,6 +96,17 @@ class ThingsboardClient {
         onLoadFinished,
         computeFunc ?? syncCompute);
     dio.interceptors.clear();
+
+    if (debugMode) {
+      dio.interceptors.add(
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseHeader: true,
+          responseBody: true,
+        ),
+      );
+    }
     dio.interceptors.add(
       HttpInterceptor(
         dio,
@@ -369,6 +384,10 @@ class ThingsboardClient {
     } catch (e) {
       throw toThingsboardError(e);
     }
+  }
+
+  AuthUser getAuthUserFromJwt(final String jwtToken) {
+    return AuthUser.fromJson(JwtDecoder.decode(jwtToken));
   }
 
   Future<void> sendResetPasswordLink(String email,
