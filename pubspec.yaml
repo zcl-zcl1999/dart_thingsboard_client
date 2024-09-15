@@ -12,6 +12,7 @@ dependencies:
   collection: ^1.19.0
   dio: ^5.3.4
   jwt_decoder: ^2.0.1
+  pretty_dio_logger: ^1.4.0
   web_socket_channel: ^2.4.0
 
 dev_dependencies:
