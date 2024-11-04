@@ -180,9 +180,9 @@ class EntityRelationInfo extends EntityRelation {
   String? toEntityTypeName;
 
   EntityRelationInfo.fromJson(Map<String, dynamic> json)
-      : fromName = json['fromName'],
+      : fromName = json['fromName'] ?? "",
         fromEntityTypeName = json['fromEntityTypeName'],
-        toName = json['toName'],
+        toName = json['toName'] ?? "",
         toEntityTypeName = json['toEntityTypeName'],
         super.fromJson(json);
 
